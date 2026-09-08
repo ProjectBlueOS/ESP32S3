@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Blue ESP32-S3 SD Card Pins</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0e1a;
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+        .container { max-width: 700px; width: 100%; }
+        h1 {
+            text-align: center;
+            color: #00b4ff;
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #667;
+            font-size: 0.85rem;
+            margin-bottom: 32px;
+        }
+        .card {
+            background: #111827;
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+        .card h2 {
+            color: #00b4ff;
+            font-size: 1rem;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #1e293b;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            text-align: left;
+            padding: 10px 14px;
+            border-bottom: 1px solid #1e293b;
+            font-size: 0.9rem;
+        }
+        th { color: #64748b; font-weight: 500; }
+        td:first-child { color: #94a3b8; }
+        td:nth-child(2) { color: #e2e8f0; font-family: monospace; }
+        td:nth-child(3) { color: #94a3b8; font-family: monospace; font-size: 0.85rem; }
+        .highlight {
+            background: rgba(0, 180, 255, 0.08);
+            border-radius: 6px;
+        }
+        .highlight td { color: #00b4ff; font-weight: 500; }
+        .note {
+            background: #1a1a2e;
+            border-left: 3px solid #f59e0b;
+            border-radius: 0 8px 8px 0;
+            padding: 14px 18px;
+            margin-top: 16px;
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+        .note strong { color: #f59e0b; }
+        .source {
+            margin-top: 16px;
+            font-size: 0.8rem;
+            color: #475569;
+        }
+        .source code {
+            background: #1e293b;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Project Blue ESP32-S3</h1>
+        <p class="subtitle">SD Card Pin Configuration</p>
+
+        <div class="card">
+            <h2>Pin Assignments</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Signal</th>
+                        <th>GPIO</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>CS</td>
+                        <td>GPIO 4</td>
+                        <td>Chip Select (active low)</td>
+                    </tr>
+                    <tr>
+                        <td>SCK</td>
+                        <td>GPIO 5</td>
+                        <td>SPI Clock</td>
+                    </tr>
+                    <tr>
+                        <td>MOSI</td>
+                        <td>GPIO 6</td>
+                        <td>Master Out Slave In</td>
+                    </tr>
+                    <tr class="highlight">
+                        <td>MISO</td>
+                        <td>GPIO 7</td>
+                        <td>Master In Slave Out</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Configuration</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Setting</th>
+                        <th>Value</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Bus Mode</td>
+                        <td>SPI</td>
+                        <td>Default; SDMMC fallback available</td>
+                    </tr>
+                    <tr>
+                        <td>SPI Host</td>
+                        <td>SPI3_HOST</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Clock Speed</td>
+                        <td>20 MHz</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>DMA</td>
+                        <td>SDSPI_DEFAULT_DMA</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Max Transfer</td>
+                        <td>16384 bytes</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Mount Point</td>
+                        <td>/sdcard</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Format on Fail</td>
+                        <td>false</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Notes</h2>
+            <div class="note">
+                <strong>Internal Pullups:</strong> SDMMC 1-bit mode enables internal pullups on all data lines.
+                SPI mode uses the same physical pins but in a different protocol — CS (GPIO 4) must be driven high during SDMMC init to prevent SPI mode entry.
+            </div>
+            <div class="note" style="margin-top: 12px;">
+                <strong>Skip Guard:</strong> If <code>SD_MOSI_PIN</code> or <code>SD_SCK_PIN</code> are set to <code>-1</code>,
+                SD card initialization is skipped entirely.
+            </div>
+            <div class="source">
+                Source: <code>components/graphics/Config.h:24-28</code>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
