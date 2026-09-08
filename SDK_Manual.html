@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlueScript Pro SDK v4.2 — Complete Reference</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #030305;
+            --surface: #0a0a12;
+            --accent: #22d3ee;
+            --text: #f1f5f9;
+            --dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.08);
+            --green: #10b981;
+            --orange: #f59e0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            display: flex;
+        }
+
+        nav {
+            width: 280px;
+            height: 100vh;
+            position: fixed;
+            border-right: 1px solid var(--border);
+            padding: 2.5rem 2rem;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(20px);
+            overflow-y: auto;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 3rem;
+        }
+
+        .nav-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--dim);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.4rem 0;
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .nav-link:hover {
+            opacity: 1;
+            color: var(--accent);
+        }
+
+        main {
+            margin-left: 280px;
+            padding: 3rem 5rem;
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            letter-spacing: -0.04em;
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin: 4rem 0 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            margin: 2rem 0 1rem;
+            color: var(--accent);
+        }
+
+        p,
+        li {
+            color: var(--dim);
+            line-height: 1.7;
+            margin-bottom: 0.5rem;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card:hover {
+            border-color: rgba(34, 211, 238, 0.3);
+        }
+
+        .desc {
+            color: var(--dim);
+            margin: 0.5rem 0 1rem;
+        }
+
+        .vars {
+            font-size: 0.85rem;
+            color: var(--green);
+        }
+
+        pre {
+            background: #000;
+            border-radius: 10px;
+            padding: 1.2rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th {
+            text-align: left;
+            padding: 0.75rem;
+            color: var(--dim);
+            font-size: 0.8rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        code {
+            font-family: 'Fira Code', monospace;
+            color: var(--accent);
+            font-size: 0.85em;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        .tag-net {
+            background: rgba(34, 211, 238, 0.15);
+            color: var(--accent);
+        }
+
+        .tag-fs {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--green);
+        }
+
+        .tag-hw {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--orange);
+        }
+
+        @media(max-width:900px) {
+            nav {
+                display: none;
+            }
+
+            main {
+                margin-left: 0;
+                padding: 2rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="logo">BLUESCRIPT PRO</div>
+        <div class="nav-group">
+            <div class="nav-label">Core</div>
+            <a href="#lifecycle" class="nav-link">Lifecycle & Syntax</a>
+            <a href="#graphics" class="nav-link">Graphics</a>
+            <a href="#audio" class="nav-link">Audio</a>
+        </div>
+        <div class="nav-group">
+            <div class="nav-label">Networking</div>
+            <a href="#ping" class="nav-link">SYSTEM.PING</a>
+            <a href="#wget" class="nav-link">SYSTEM.WGET</a>
+            <a href="#netstatus" class="nav-link">Network Status</a>
+            <a href="#email" class="nav-link">SendEmail</a>
+        </div>
+        <div class="nav-group">
+            <div class="nav-label">File System</div>
+            <a href="#filesystem" class="nav-link">IO.MKDIR / COPY / Zip</a>
+            <a href="#dirlist" class="nav-link">SYSTEM.DIR</a>
+        </div>
+        <div class="nav-group">
+            <div class="nav-label">Hardware</div>
+            <a href="#gpio" class="nav-link">GPIO / ADC / DAC</a>
+            <a href="#serial" class="nav-link">Serial UART</a>
+            <a href="#peripherals" class="nav-link">Remote Peripherals</a>
+        </div>
+        <div class="nav-group">
+            <div class="nav-label">System</div>
+            <a href="#coordinates" class="nav-link">Coordinate System</a>
+            <a href="#telemetry" class="nav-link">Telemetry &amp; Clock</a>
+            <a href="#appcontrol" class="nav-link">App Control</a>
+            <a href="#threed" class="nav-link">3D Engine</a>
+        </div>
+        <div class="nav-group">
+            <div class="nav-label">Game Dev</div>
+            <a href="#collision" class="nav-link">Collision Detection</a>
+            <a href="#math" class="nav-link">Math Functions</a>
+            <a href="#sprites" class="nav-link">Sprite System</a>
+        </div>
+        <div class="nav-group">
+            <div class="nav-label">Reference</div>
+            <a href="#variables" class="nav-link">All Variables</a>
+            <a href="#colors" class="nav-link">Color Palette</a>
+        </div>
+    </nav>
+
+    <main>
+        <h1>Complete SDK Reference</h1>
+        <p>v4.2 — Every command verified against <code>BlueScriptModule.cpp</code>. Scripts use the <code>.bb</code>
+            extension.</p>
+
+        <!-- LIFECYCLE -->
+        <h2 id="lifecycle">Lifecycle & Language</h2>
+        <div class="card">
+            <table>
+                <tr>
+                    <td><code>:onDraw</code></td>
+                    <td>Rendering loop — use all Graphics.* commands here</td>
+                </tr>
+                <tr>
+                    <td><code>:onUpdate</code></td>
+                    <td>Logic loop — runs before draw</td>
+                </tr>
+                <tr>
+                    <td><code>:onMouseEvent</code></td>
+                    <td>Sets <code>event_type</code>, <code>event_x</code>, <code>event_y</code></td>
+                </tr>
+                <tr>
+                    <td><code>:onKeyboardEvent</code></td>
+                    <td>Sets <code>event_type</code>, <code>event_value</code></td>
+                </tr>
+            </table>
+            <pre># Variables &amp; Expressions
+LET x = 10, y = 20, z = 30           # multi-LET
+LET label = "Heap: " + mem_free + " B" # string concat
+LET blink = (second + (minute * 60)) % 2 # parentheses + nested math
+
+IF (score + bonus) > 100 THEN
+  IO.PRINT "High score!"
+ENDIF
+FOR i = 0 TO 10 STEP 2
+  Graphics.DrawCircle 200, 150, i * 5, CYAN
+NEXT</pre>
+            <p style="color:var(--dim)"><strong>Operators:</strong> <code>+</code> <code>-</code> <code>*</code>
+                <code>/</code> <code>%</code> <code>( )</code> &mdash; the <code>+</code> operator auto-concatenates
+                when either side is
+                a string. Expressions now support <strong>nested parentheses</strong> and <strong>unary
+                    negation</strong> (e.g. <code>-(x + 5)</code>).
+            </p>
+        </div>
+
+        <div class="card">
+            <h3 style="margin-top:0">Syntax Best Practices</h3>
+            <p class="desc">For maximum stability and performance, follow these guidelines:</p>
+            <ul>
+                <li><strong>One Command Per Line</strong>: High-density scripts (using <code>:</code> for multi-command
+                    lines) are deprecated. Use individual lines for each command.</li>
+                <li><strong>PSRAM Optimization</strong>: The interpreter automatically places strings, lines, and
+                    variable maps in PSRAM. No manual memory management is required.</li>
+                <li><strong>Explicit Parentheses</strong>: While operator precedence is supported, use parentheses for
+                    complex 3D or physics math to ensure predictability.</li>
+            </ul>
+        </div>
+
+        <!-- COORDINATE SYSTEM -->
+        <h2 id="coordinates">Coordinate System</h2>
+        <div class="card">
+            <h3 style="margin-top:0">Content-Area Coordinates</h3>
+            <p class="desc">All drawing and input coordinates use the <strong>content area</strong> as their
+                origin. The engine automatically handles the window border (2px) and titlebar (30px) offsets.
+                Scripts should treat <code>(0, 0)</code> as the top-left corner of the drawable area.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Property</th>
+                        <th>Value</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Origin</td>
+                        <td><code>(0, 0)</code></td>
+                        <td>Top-left of the content area (below titlebar, inside border)</td>
+                    </tr>
+                    <tr>
+                        <td>Content Width</td>
+                        <td><code>396</code> px</td>
+                        <td>Window width (400) minus 2px border on each side. Available as <code>win_w</code></td>
+                    </tr>
+                    <tr>
+                        <td>Content Height</td>
+                        <td><code>318</code> px</td>
+                        <td>Window height (350) minus titlebar (30) and border (2). Available as <code>win_h</code></td>
+                    </tr>
+                    <tr>
+                        <td>Clipping</td>
+                        <td>Automatic</td>
+                        <td>Drawing outside the content area is clipped — no pixels leak into borders or titlebar</td>
+                    </tr>
+                </tbody>
+            </table>
+            <pre># Clear the full content area
+Graphics.FillRect 0, 0, 396, 300, BLACK
+
+# Draw at content origin — no manual border offsets needed
+Graphics.DrawString 10, 10, "Hello!", CYAN
+
+# Mouse events also use content-area coordinates
+:onMouseEvent
+  # event_x=0 means left edge of content, event_y=0 means top of content
+  Graphics.FillCircle event_x, event_y, 5, RED
+RETURN</pre>
+            <p style="color:var(--dim)"><strong>Note:</strong> The variables <code>win_w</code> and <code>win_h</code>
+                are automatically set each frame and reflect the usable content dimensions. Use these instead of
+                hardcoded values for portable scripts.</p>
+        </div>
+
+        <!-- GRAPHICS -->
+        <h2 id="graphics">Graphics Engine</h2>
+        <div class="card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Command</th>
+                        <th>Arguments</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>Graphics.FillRect</code></td>
+                        <td>x, y, w, h, color</td>
+                        <td>Solid rectangle</td>
+                    </tr>
+                    <tr>
+                        <td><code>Graphics.DrawCircle</code></td>
+                        <td>x, y, r, color</td>
+                        <td>Circle outline</td>
+                    </tr>
+                    <tr>
+                        <td><code>Graphics.DrawLine</code></td>
+                        <td>x1, y1, x2, y2, color</td>
+                        <td>Line</td>
+                    </tr>
+                    <tr>
+                        <td><code>Graphics.DrawString</code></td>
+                        <td>x, y, "text", color</td>
+                        <td>Fixed-width font</td>
+                    </tr>
+                    <tr>
+                        <td><code>Graphics.DrawProportional</code></td>
+                        <td>x, y, "text", color, 0, scale</td>
+                        <td>AA proportional font</td>
+                    </tr>
+                    <tr>
+                        <td><code>Graphics.DrawImage</code></td>
+                        <td>"path", x, y</td>
+                        <td>JPG/PNG/BMP via STB</td>
+                    </tr>
+                    <tr>
+                        <td><code>Graphics.DrawButton</code></td>
+                        <td>x, y, w, h, "label", pressed</td>
+                        <td>Renders a native Omega-styled button</td>
+                    </tr>
+                    <tr>
+                        <td><code>Graphics.FillCircle</code></td>
+                        <td>x, y, r, color</td>
+                        <td>Solid filled circle</td>
+                    </tr>
+                    <tr>
+                        <td><code>Graphics.DrawTriangle</code></td>
+                        <td>x1, y1, x2, y2, x3, y3, color</td>
+                        <td>Triangle outline</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- COLOR PALETTE -->
+        <h2 id="colors">Color Palette <span class="tag tag-net">RGB565</span></h2>
+        <div class="card">
+            <div class="desc">18 built-in named color constants. Use by name instead of hex codes.</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Hex</th>
+                        <th style="width:40px"></th>
+                        <th>Name</th>
+                        <th>Hex</th>
+                        <th style="width:40px"></th>
+                        <th>Name</th>
+                        <th>Hex</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>BLACK</code></td>
+                        <td>0x0000</td>
+                        <td></td>
+                        <td><code>WHITE</code></td>
+                        <td>0xFFFF</td>
+                        <td></td>
+                        <td><code>RED</code></td>
+                        <td>0xF800</td>
+                    </tr>
+                    <tr>
+                        <td><code>GREEN</code></td>
+                        <td>0x07E0</td>
+                        <td></td>
+                        <td><code>BLUE</code></td>
+                        <td>0x001F</td>
+                        <td></td>
+                        <td><code>CYAN</code></td>
+                        <td>0x07FF</td>
+                    </tr>
+                    <tr>
+                        <td><code>MAGENTA</code></td>
+                        <td>0xF81F</td>
+                        <td></td>
+                        <td><code>YELLOW</code></td>
+                        <td>0xFFE0</td>
+                        <td></td>
+                        <td><code>ORANGE</code></td>
+                        <td>0xFD20</td>
+                    </tr>
+                    <tr>
+                        <td><code>PURPLE</code></td>
+                        <td>0x780F</td>
+                        <td></td>
+                        <td><code>PINK</code></td>
+                        <td>0xFC18</td>
+                        <td></td>
+                        <td><code>GRAY</code></td>
+                        <td>0x8410</td>
+                    </tr>
+                    <tr>
+                        <td><code>DARKGRAY</code></td>
+                        <td>0x4208</td>
+                        <td></td>
+                        <td><code>NAVY</code></td>
+                        <td>0x0010</td>
+                        <td></td>
+                        <td><code>TEAL</code></td>
+                        <td>0x0410</td>
+                    </tr>
+                    <tr>
+                        <td><code>SILVER</code></td>
+                        <td>0xC618</td>
+                        <td></td>
+                        <td><code>MAROON</code></td>
+                        <td>0x8000</td>
+                        <td></td>
+                        <td><code>LIME</code></td>
+                        <td>0x87E0</td>
+                    </tr>
+                </tbody>
+            </table>
+            <pre># Usage example — coordinates are content-relative
+Graphics.FillRect 0, 0, 396, 300, BLACK
+Graphics.DrawString 10, 10, "Hello!", CYAN
+Graphics.DrawCircle 198, 150, 50, ORANGE</pre>
+        </div>
+
+        <!-- AUDIO -->
+        <h2 id="audio">Audio</h2>
+        <div class="card">
+            <table>
+                <tr>
+                    <td><code>Audio.PlaySfx id</code></td>
+                    <td>Play built-in sound (1:Click, 2:Laser, 3:Explosion)</td>
+                </tr>
+                <tr>
+                    <td><code>Audio.StreamMp3 "path"</code></td>
+                    <td>Stream MP3 from storage</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- NETWORKING -->
+        <h2 id="ping">SYSTEM.PING <span class="tag tag-net">NETWORK</span></h2>
+        <div class="card">
+            <div class="desc">Sends ICMP echo request via <code>esp_ping</code>. Supports hostnames and IPs.</div>
+            <pre>SYSTEM.PING "google.com"
+IF ping_success = 1 THEN
+  Graphics.DrawString 10, 10, "RTT: " + ping_ms + "ms", 0x07E0
+ENDIF</pre>
+            <div class="vars">→ <code>ping_success</code> (0/1), <code>ping_ms</code> (round-trip ms)</div>
+        </div>
+
+        <h2 id="wget">SYSTEM.WGET <span class="tag tag-net">NETWORK</span></h2>
+        <div class="card">
+            <div class="desc">Downloads a file over HTTP/HTTPS with TLS via <code>esp_http_client</code>.</div>
+            <pre>SYSTEM.WGET "https://example.com/data.json", "/downloads/data.json"
+IF wget_success = 1 THEN
+  IO.PRINT "Got " + wget_size + " bytes"
+ENDIF</pre>
+            <div class="vars">→ <code>wget_success</code> (0/1), <code>wget_size</code> (bytes)</div>
+        </div>
+
+        <h2 id="netstatus">Network Status <span class="tag tag-net">NETWORK</span></h2>
+        <div class="card">
+            <table>
+                <tr>
+                    <td><code>Network.GetIP</code></td>
+                    <td><code>net_ip</code></td>
+                    <td>Board's local IP</td>
+                </tr>
+                <tr>
+                    <td><code>Network.GetRSSI</code></td>
+                    <td><code>net_rssi</code></td>
+                    <td>WiFi signal (dBm)</td>
+                </tr>
+                <tr>
+                    <td><code>Network.IsConnected</code></td>
+                    <td><code>net_connected</code></td>
+                    <td>1 = connected</td>
+                </tr>
+                <tr>
+                    <td><code>Network.WaitConnected</code></td>
+                    <td>&mdash;</td>
+                    <td>Blocks up to 30s until WiFi connects</td>
+                </tr>
+                <tr>
+                    <td><code>Network.SendEmail</code></td>
+                    <td>&mdash;</td>
+                    <td>Sends an email (see below)</td>
+                </tr>
+                <tr>
+                    <td><code>OS.Delay ms</code></td>
+                    <td>&mdash;</td>
+                    <td>Pause execution for <code>ms</code> milliseconds</td>
+                </tr>
+            </table>
+        </div>
+
+        <h2 id="email">Network.SendEmail <span class="tag tag-net">NETWORK</span></h2>
+        <div class="card">
+            <div class="desc">Sends an email via the system's QMail SMTP engine. Only <strong>3 arguments are
+                    required</strong> &mdash; the
+                system automatically uses the SMTP credentials from <code>config.txt</code> on your SD card. You can
+                optionally override the server, port, and password for one-off sends to a different provider.</div>
+            <pre># Minimal usage &mdash; uses config.txt credentials automatically
+Network.WaitConnected
+Network.SendEmail "to@example.com", "Subject", "Hello from BlueScript!"
+
+# Advanced usage &mdash; override SMTP server for this send only
+Network.SendEmail "to@example.com", "Alert", "Body text", "smtp.other.com", 587, "app_password"</pre>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Argument</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>to</code></td>
+                        <td>String</td>
+                        <td>&#10003;</td>
+                        <td>Recipient email address</td>
+                    </tr>
+                    <tr>
+                        <td><code>subject</code></td>
+                        <td>String</td>
+                        <td>&#10003;</td>
+                        <td>Email subject line</td>
+                    </tr>
+                    <tr>
+                        <td><code>body</code></td>
+                        <td>String</td>
+                        <td>&#10003;</td>
+                        <td>Message body text</td>
+                    </tr>
+                    <tr>
+                        <td><code>server</code></td>
+                        <td>String</td>
+                        <td></td>
+                        <td>SMTP server address (default: from config.txt)</td>
+                    </tr>
+                    <tr>
+                        <td><code>port</code></td>
+                        <td>Integer</td>
+                        <td></td>
+                        <td>SMTP port &mdash; 465 (SSL) or 587 (STARTTLS)</td>
+                    </tr>
+                    <tr>
+                        <td><code>password</code></td>
+                        <td>String</td>
+                        <td></td>
+                        <td>SMTP App Password (default: from config.txt)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3 style="margin-top:1.5rem">config.txt SMTP Setup</h3>
+            <p class="desc">Place a <code>config.txt</code> file in the root of your SD card with the following fields.
+                The system reads these at boot and uses them as defaults for all <code>Network.SendEmail</code> calls.
+            </p>
+            <pre>SSID: YourWiFiName
+PW: YourWiFiPassword
+EMAIL: you@gmail.com
+MAIL_SERVER: smtp.gmail.com
+MAIL_PORT: 465
+MAIL_PW: your_app_password
+MAIL_USER: you@gmail.com</pre>
+            <p style="color:var(--dim)"><strong>Note:</strong> For Gmail, generate an <em>App Password</em> in your
+                Google Account security settings
+                and use it as <code>MAIL_PW</code>. The <code>MAIL_USER</code> field is optional &mdash; if omitted,
+                <code>EMAIL</code> is used as the login username.
+            </p>
+        </div>
+
+        <!-- FILE SYSTEM -->
+        <h2 id="filesystem">File System <span class="tag tag-fs">IO</span></h2>
+        <div class="card">
+            <div class="desc">All operations set <code>io_success</code> to 1 (OK) or 0 (fail).</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Command</th>
+                        <th>Arguments</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>IO.MKDIR</code></td>
+                        <td>"path"</td>
+                        <td>Create directory</td>
+                    </tr>
+                    <tr>
+                        <td><code>IO.REMOVE</code></td>
+                        <td>"path"</td>
+                        <td>Delete file/directory (recursive)</td>
+                    </tr>
+                    <tr>
+                        <td><code>IO.RENAME</code></td>
+                        <td>"old", "new"</td>
+                        <td>Rename or move</td>
+                    </tr>
+                    <tr>
+                        <td><code>IO.COPY</code></td>
+                        <td>"src", "dest"</td>
+                        <td>Copy a file</td>
+                    </tr>
+                    <tr>
+                        <td><code>IO.EXISTS</code></td>
+                        <td>"path"</td>
+                        <td>Check existence</td>
+                    </tr>
+                    <tr>
+                        <td><code>IO.Zip</code></td>
+                        <td>"source", "output.zip"</td>
+                        <td>Compress a file or directory into a ZIP archive (async)</td>
+                    </tr>
+                    <tr>
+                        <td><code>IO.Unzip</code></td>
+                        <td>"archive.zip", "dest_dir"</td>
+                        <td>Extract a ZIP archive to a directory (async)</td>
+                    </tr>
+                    <tr>
+                        <td><code>IO.PRINT</code></td>
+                        <td>"message"</td>
+                        <td>Log to system console</td>
+                    </tr>
+                </tbody>
+            </table>
+            <pre>IO.MKDIR "/backups"
+IO.COPY "/data.bb", "/backups/data.bb"
+IF io_success = 1 THEN
+  IO.PRINT "Backup created"
+ENDIF
+
+# Zip a directory and unzip it elsewhere
+IO.Zip "/scripts", "/scripts.zip"
+IO.Unzip "/scripts.zip", "/restored"</pre>
+            <p style="color:var(--dim)"><strong>Note:</strong> <code>IO.Zip</code> and <code>IO.Unzip</code> run
+                asynchronously in background tasks. They support both individual files and entire directories recursively.
+                The operations use cooperative SD card locks with <code>minizip</code> I/O to guarantee thread-safe execution without causing watchdog crashes or SD corruption.</p>
+        </div>
+
+        <h2 id="dirlist">Directory Listing <span class="tag tag-fs">IO</span></h2>
+        <div class="card">
+            <pre>SYSTEM.DIR "/scripts"
+# Sets file_count, file_0, file_1, ...
+FOR i = 0 TO file_count - 1
+  Graphics.DrawString 10, 20 + i * 16, file_0, 0xFFFF
+NEXT</pre>
+        </div>
+
+        <!-- HARDWARE IO -->
+        <h2 id="gpio">GPIO / ADC / DAC <span class="tag tag-hw">HARDWARE</span></h2>
+        <div class="card">
+            <table>
+                <tr>
+                    <td><code>IO.DigitalWrite pin, val</code></td>
+                    <td>Set GPIO output (0 or 1)</td>
+                </tr>
+                <tr>
+                    <td><code>IO.ReadAdc pin</code></td>
+                    <td>Read analog → <code>adc_val</code> (0–4095)</td>
+                </tr>
+                <tr>
+                    <td><code>IO.WriteDac channel, val</code></td>
+                    <td>DAC output (0–255), if supported</td>
+                </tr>
+            </table>
+        </div>
+
+        <h2 id="serial">Serial UART <span class="tag tag-hw">HARDWARE</span></h2>
+        <div class="card">
+            <table>
+                <tr>
+                    <td><code>IO.SerialRead</code></td>
+                    <td>Read UART buffer → <code>serial_in</code></td>
+                </tr>
+                <tr>
+                    <td><code>IO.SerialWrite "text"</code></td>
+                    <td>Write string to serial port</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- PERIPHERALS -->
+        <h2 id="peripherals">Remote Peripherals <span class="tag tag-hw">HARDWARE</span></h2>
+        <div class="card">
+            <div class="desc">Control other Project Blue boards via UDP port 5001.</div>
+            <table>
+                <tr>
+                    <td><code>Peripherals.Scan</code></td>
+                    <td>Broadcast discovery</td>
+                </tr>
+                <tr>
+                    <td><code>Peripherals.Add "ip"</code></td>
+                    <td>Register remote node</td>
+                </tr>
+                <tr>
+                    <td><code>Peripherals.SetGpio "ip", pin, val</code></td>
+                    <td>Remote GPIO toggle</td>
+                </tr>
+                <tr>
+                    <td><code>Peripherals.GetAdc "ip", pin</code></td>
+                    <td>Remote analog read → <code>adc_val</code></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- SYSTEM -->
+        <h2 id="telemetry">System Telemetry & Clock</h2>
+        <div class="card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Command</th>
+                        <th>Variables</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>SYSTEM.GETTIME</code></td>
+                        <td>hour, minute, second, day, month, year</td>
+                        <td>Read RTC</td>
+                    </tr>
+                    <tr>
+                        <td><code>System.SetTime</code></td>
+                        <td>year, month, day, hour, min</td>
+                        <td>Set RTC</td>
+                    </tr>
+                    <tr>
+                        <td><code>SYSTEM.TOP</code></td>
+                        <td>mem_free, psram_free, tasks_count</td>
+                        <td>RTOS stats</td>
+                    </tr>
+                    <tr>
+                        <td><code>System.GetStats</code></td>
+                        <td>heap_free, psram_free</td>
+                        <td>Heap metrics</td>
+                    </tr>
+                    <tr>
+                        <td><code>System.GetCpuTemp</code></td>
+                        <td>cpu_temp</td>
+                        <td>Temperature estimate</td>
+                    </tr>
+                    <tr>
+                        <td><code>System.GetUptime</code></td>
+                        <td>uptime</td>
+                        <td>Seconds since boot</td>
+                    </tr>
+                    <tr>
+                        <td><code>System.GetChipType</code></td>
+                        <td>chip_type</td>
+                        <td>e.g. "ESP32-S3"</td>
+                    </tr>
+                    <tr>
+                        <td><code>System.SetTimezone "tz"</code></td>
+                        <td>—</td>
+                        <td>Set timezone string</td>
+                    </tr>
+                    <tr>
+                        <td><code>System.GetTimezone</code></td>
+                        <td>timezone</td>
+                        <td>Get current timezone</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 id="appcontrol">App Control</h2>
+        <div class="card">
+            <table>
+                <tr>
+                    <td><code>SYSTEM.APPNAME "title"</code></td>
+                    <td>Set window title</td>
+                </tr>
+                <tr>
+                    <td><code>System.SetBackground "path"</code></td>
+                    <td>Set desktop wallpaper</td>
+                </tr>
+                <tr>
+                    <td><code>System.ClearBackground</code></td>
+                    <td>Remove wallpaper</td>
+                </tr>
+                <tr>
+                    <td><code>SYSTEM.REBOOT</code></td>
+                    <td>Hardware restart</td>
+                </tr>
+                <tr>
+                    <td><code>System.Close</code></td>
+                    <td>Terminate current app</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- 3D -->
+        <h2 id="threed">3D Projection Engine</h2>
+        <div class="card">
+            <pre># Define vertices: v0_x, v0_y, v0_z ... v99
+LET v0_x = -50, v0_y = -50, v0_z = 50
+
+# Rotate + Transform + Project
+3D.MatrixRotate "Y", 45
+3D.TransformPoints
+3D.ProjectPoints
+
+# Draw with projected coords: p0_x, p0_y ...
+Graphics.DrawLine p0_x, p0_y, p1_x, p1_y, 0xFFFF</pre>
+        </div>
+
+        <div class="card">
+            <h3 style="margin-top:0">Hardware-Accelerated 3D <span class="tag tag-hw">NATIVE</span></h3>
+            <p class="desc">Renders a complete wireframe cube in a single native C++ call. ~50x faster than the
+                script-level pipeline.</p>
+            <pre>3D.DrawCube centerX, centerY, size, angleY, angleX, frontColor, backColor, edgeColor
+
+# Example: neon glow cube
+3D.DrawCube 200, 140, 60, angY, angX, CYAN, GREEN, MAGENTA</pre>
+            <table>
+                <tr>
+                    <td><code>centerX, centerY</code></td>
+                    <td>Screen position of cube center</td>
+                </tr>
+                <tr>
+                    <td><code>size</code></td>
+                    <td>Half-edge length (60 = 120px wide)</td>
+                </tr>
+                <tr>
+                    <td><code>angleY, angleX</code></td>
+                    <td>Rotation angles in degrees</td>
+                </tr>
+                <tr>
+                    <td><code>frontColor, backColor, edgeColor</code></td>
+                    <td>Colors for each face group</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- COLLISION -->
+        <h2 id="collision">Collision Detection <span class="tag tag-hw">NATIVE</span></h2>
+        <div class="card">
+            <p class="desc">All native C++ — zero script overhead. Results stored in variables.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Command</th>
+                        <th>Arguments</th>
+                        <th>Variables Set</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>Collision.Rect</code></td>
+                        <td>x1, y1, w1, h1, x2, y2, w2, h2</td>
+                        <td><code>collision_hit</code> (0/1)</td>
+                    </tr>
+                    <tr>
+                        <td><code>Collision.Circle</code></td>
+                        <td>x1, y1, r1, x2, y2, r2</td>
+                        <td><code>collision_hit</code>, <code>collision_dist</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>Collision.PointRect</code></td>
+                        <td>px, py, rx, ry, rw, rh</td>
+                        <td><code>collision_hit</code> (0/1)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <pre>Collision.Circle playerX, playerY, 8, enemyX, enemyY, 10
+IF collision_hit = 1 THEN
+  LET lives = lives - 1
+ENDIF</pre>
+        </div>
+
+        <!-- MATH -->
+        <h2 id="math">Math Functions <span class="tag tag-hw">NATIVE</span></h2>
+        <div class="card">
+            <p class="desc">Native trig, random, and utility functions. All set the <code>result</code> variable.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Command</th>
+                        <th>Input</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>Math.Sin</code></td>
+                        <td>degrees</td>
+                        <td>Sine (float)</td>
+                    </tr>
+                    <tr>
+                        <td><code>Math.Cos</code></td>
+                        <td>degrees</td>
+                        <td>Cosine (float)</td>
+                    </tr>
+                    <tr>
+                        <td><code>Math.Sqrt</code></td>
+                        <td>value</td>
+                        <td>Square root</td>
+                    </tr>
+                    <tr>
+                        <td><code>Math.Abs</code></td>
+                        <td>value</td>
+                        <td>Absolute value</td>
+                    </tr>
+                    <tr>
+                        <td><code>Math.Random</code></td>
+                        <td>min, max</td>
+                        <td>Random integer (HW RNG)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <pre>Math.Sin angle
+LET px = 200 + result * 80
+Math.Random 1, 100
+IF result > 90 THEN
+  IO.PRINT "Rare event!"
+ENDIF</pre>
+        </div>
+
+        <!-- SPRITES -->
+        <h2 id="sprites">Sprite System <span class="tag tag-hw">NATIVE</span></h2>
+        <div class="card">
+            <p class="desc">Up to 16 cached sprite slots. Images loaded once into PSRAM, drawn at hardware speed. The
+                engine uses a <strong>PSRAM-backed memory model</strong> for scripts and variables, allowing 1000s of
+                variables without impacting internal SRAM.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Command</th>
+                        <th>Arguments</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>Sprite.Load</code></td>
+                        <td>id, "path"</td>
+                        <td>Load image into slot 0–15</td>
+                    </tr>
+                    <tr>
+                        <td><code>Sprite.Draw</code></td>
+                        <td>id, x, y</td>
+                        <td>Draw at position</td>
+                    </tr>
+                    <tr>
+                        <td><code>Sprite.DrawScaled</code></td>
+                        <td>id, x, y, scaleX, scaleY</td>
+                        <td>Draw with scaling</td>
+                    </tr>
+                    <tr>
+                        <td><code>Sprite.GetSize</code></td>
+                        <td>id</td>
+                        <td>Sets <code>sprite_w</code>, <code>sprite_h</code></td>
+                    </tr>
+                </tbody>
+            </table>
+            <pre>Sprite.Load 0, "/sprites/player.png"
+Sprite.Load 1, "/sprites/enemy.png"
+
+:onDraw
+  Sprite.Draw 0, playerX, playerY
+  Sprite.DrawScaled 1, enemyX, enemyY, 2.0, 2.0
+RETURN</pre>
+        </div>
+
+        <!-- VARIABLES -->
+        <h2 id="variables">All Reserved Variables</h2>
+
+        <div class="card">
+            <h3 style="margin-top:0">Input Events</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Variable</th>
+                        <th>Set By</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>event_type</code></td>
+                        <td>Mouse / Keyboard</td>
+                        <td>string</td>
+                        <td>Mouse: "Down", "Up", "Move" &mdash; Keyboard: "KeyDown", "KeyUp", "Char"</td>
+                    </tr>
+                    <tr>
+                        <td><code>event_x</code></td>
+                        <td>:onMouseEvent</td>
+                        <td>int</td>
+                        <td>Mouse X (content-area relative, 0 = left edge of content)</td>
+                    </tr>
+                    <tr>
+                        <td><code>event_y</code></td>
+                        <td>:onMouseEvent</td>
+                        <td>int</td>
+                        <td>Mouse Y (content-area relative, 0 = top of content below titlebar)</td>
+                    </tr>
+                    <tr>
+                        <td><code>event_value</code></td>
+                        <td>:onKeyboardEvent</td>
+                        <td>string</td>
+                        <td>Key name (e.g. "Space", "a", "Escape")</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h3 style="margin-top:0">Networking</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Variable</th>
+                        <th>Set By</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>ping_success</code></td>
+                        <td>SYSTEM.PING</td>
+                        <td>int</td>
+                        <td>1 if host responded, 0 timeout</td>
+                    </tr>
+                    <tr>
+                        <td><code>ping_ms</code></td>
+                        <td>SYSTEM.PING</td>
+                        <td>int</td>
+                        <td>Round-trip time (ms)</td>
+                    </tr>
+                    <tr>
+                        <td><code>wget_success</code></td>
+                        <td>SYSTEM.WGET</td>
+                        <td>int</td>
+                        <td>1 if download succeeded</td>
+                    </tr>
+                    <tr>
+                        <td><code>wget_size</code></td>
+                        <td>SYSTEM.WGET</td>
+                        <td>int</td>
+                        <td>Bytes downloaded</td>
+                    </tr>
+                    <tr>
+                        <td><code>net_ip</code></td>
+                        <td>Network.GetIP</td>
+                        <td>string</td>
+                        <td>Board's local IP address</td>
+                    </tr>
+                    <tr>
+                        <td><code>net_rssi</code></td>
+                        <td>Network.GetRSSI</td>
+                        <td>int</td>
+                        <td>WiFi signal strength (dBm)</td>
+                    </tr>
+                    <tr>
+                        <td><code>net_connected</code></td>
+                        <td>Network.IsConnected</td>
+                        <td>int</td>
+                        <td>1 = WiFi connected</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h3 style="margin-top:0">File System</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Variable</th>
+                        <th>Set By</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>io_success</code></td>
+                        <td>IO.MKDIR / REMOVE / RENAME / COPY / EXISTS</td>
+                        <td>int</td>
+                        <td>1 = OK, 0 = failed</td>
+                    </tr>
+                    <tr>
+                        <td><code>file_count</code></td>
+                        <td>SYSTEM.DIR</td>
+                        <td>int</td>
+                        <td>Number of directory entries</td>
+                    </tr>
+                    <tr>
+                        <td><code>file_0</code> … <code>file_N</code></td>
+                        <td>SYSTEM.DIR</td>
+                        <td>string</td>
+                        <td>Each filename in listing</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h3 style="margin-top:0">System Clock & Telemetry</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Variable</th>
+                        <th>Set By</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>hour</code></td>
+                        <td>SYSTEM.GETTIME</td>
+                        <td>int</td>
+                        <td>0–23</td>
+                    </tr>
+                    <tr>
+                        <td><code>minute</code></td>
+                        <td>SYSTEM.GETTIME</td>
+                        <td>int</td>
+                        <td>0–59</td>
+                    </tr>
+                    <tr>
+                        <td><code>second</code></td>
+                        <td>SYSTEM.GETTIME</td>
+                        <td>int</td>
+                        <td>0–59</td>
+                    </tr>
+                    <tr>
+                        <td><code>day</code></td>
+                        <td>SYSTEM.GETTIME</td>
+                        <td>int</td>
+                        <td>1–31</td>
+                    </tr>
+                    <tr>
+                        <td><code>month</code></td>
+                        <td>SYSTEM.GETTIME</td>
+                        <td>int</td>
+                        <td>1–12</td>
+                    </tr>
+                    <tr>
+                        <td><code>year</code></td>
+                        <td>SYSTEM.GETTIME</td>
+                        <td>int</td>
+                        <td>e.g. 2026</td>
+                    </tr>
+                    <tr>
+                        <td><code>timezone</code></td>
+                        <td>System.GetTimezone</td>
+                        <td>string</td>
+                        <td>Current timezone string</td>
+                    </tr>
+                    <tr>
+                        <td><code>mem_free</code></td>
+                        <td>SYSTEM.TOP</td>
+                        <td>int</td>
+                        <td>Free internal heap (bytes)</td>
+                    </tr>
+                    <tr>
+                        <td><code>psram_free</code></td>
+                        <td>SYSTEM.TOP / System.GetStats</td>
+                        <td>int</td>
+                        <td>Free PSRAM (bytes)</td>
+                    </tr>
+                    <tr>
+                        <td><code>heap_free</code></td>
+                        <td>System.GetStats</td>
+                        <td>int</td>
+                        <td>Free internal heap (bytes)</td>
+                    </tr>
+                    <tr>
+                        <td><code>delta_time</code></td>
+                        <td>(Automatic)</td>
+                        <td>float</td>
+                        <td>Seconds since last update (for smooth animation)</td>
+                    </tr>
+                    <tr>
+                        <td><code>win_w</code></td>
+                        <td>(Automatic)</td>
+                        <td>int</td>
+                        <td>Content area width in pixels (default: 396)</td>
+                    </tr>
+                    <tr>
+                        <td><code>win_h</code></td>
+                        <td>(Automatic)</td>
+                        <td>int</td>
+                        <td>Content area height in pixels (default: 318)</td>
+                    </tr>
+                    <tr>
+                        <td><code>cpu_load</code></td>
+                        <td>(Automatic)</td>
+                        <td>float</td>
+                        <td>Estimated CPU load percentage (0–100)</td>
+                    </tr>
+                    <tr>
+                        <td><code>tasks_count</code></td>
+                        <td>SYSTEM.TOP</td>
+                        <td>int</td>
+                        <td>Number of RTOS tasks</td>
+                    </tr>
+                    <tr>
+                        <td><code>cpu_temp</code></td>
+                        <td>System.GetCpuTemp</td>
+                        <td>float</td>
+                        <td>Estimated SoC temperature °C</td>
+                    </tr>
+                    <tr>
+                        <td><code>uptime</code></td>
+                        <td>System.GetUptime</td>
+                        <td>int</td>
+                        <td>Seconds since boot</td>
+                    </tr>
+                    <tr>
+                        <td><code>chip_type</code></td>
+                        <td>System.GetChipType</td>
+                        <td>string</td>
+                        <td>e.g. "ESP32-S3"</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h3 style="margin-top:0">Hardware IO & Serial</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Variable / Command</th>
+                        <th>Set By</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>adc_val</code></td>
+                        <td>IO.ReadAdc / Peripherals.GetAdc</td>
+                        <td>int</td>
+                        <td>Analog reading (0–4095)</td>
+                    </tr>
+                    <tr>
+                        <td><code>serial_in</code></td>
+                        <td>IO.SerialRead</td>
+                        <td>string</td>
+                        <td>Data read from UART buffer</td>
+                    </tr>
+                    <tr>
+                        <td><em>IO.SerialWrite "text"</em></td>
+                        <td>(output only)</td>
+                        <td>—</td>
+                        <td>Writes string to serial port</td>
+                    </tr>
+                    <tr>
+                        <td><code>remote_ip</code></td>
+                        <td>Peripherals.Add</td>
+                        <td>string</td>
+                        <td>Last registered remote board IP</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h3 style="margin-top:0">3D Engine</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Variable</th>
+                        <th>Set By</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>v0_x</code> … <code>v99_z</code></td>
+                        <td>User (LET)</td>
+                        <td>float</td>
+                        <td>Vertex positions (_x, _y, _z per vertex)</td>
+                    </tr>
+                    <tr>
+                        <td><code>m0</code> … <code>m8</code></td>
+                        <td>3D.MatrixRotate</td>
+                        <td>float</td>
+                        <td>3×3 rotation matrix cells</td>
+                    </tr>
+                    <tr>
+                        <td><code>p0_x</code> … <code>p99_y</code></td>
+                        <td>3D.ProjectPoints</td>
+                        <td>int</td>
+                        <td>2D projected screen coordinates</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h3 style="margin-top:0">Collision, Math &amp; Sprites</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Variable</th>
+                        <th>Set By</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>collision_hit</code></td>
+                        <td>Collision.*</td>
+                        <td>int</td>
+                        <td>1 if collision detected</td>
+                    </tr>
+                    <tr>
+                        <td><code>collision_dist</code></td>
+                        <td>Collision.Circle</td>
+                        <td>float</td>
+                        <td>Distance between centers</td>
+                    </tr>
+                    <tr>
+                        <td><code>result</code></td>
+                        <td>Math.*</td>
+                        <td>float/int</td>
+                        <td>Last math result</td>
+                    </tr>
+                    <tr>
+                        <td><code>sprite_w</code></td>
+                        <td>Sprite.Load / GetSize</td>
+                        <td>int</td>
+                        <td>Sprite width</td>
+                    </tr>
+                    <tr>
+                        <td><code>sprite_h</code></td>
+                        <td>Sprite.Load / GetSize</td>
+                        <td>int</td>
+                        <td>Sprite height</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <footer
+            style="margin-top:6rem; padding-top:2rem; border-top:1px solid var(--border); color:var(--dim); font-size:0.8rem;">
+            &copy; 2026 Project Blue — BlueScript Pro SDK v4.2
+        </footer>
+    </main>
+</body>
+
+</html>
