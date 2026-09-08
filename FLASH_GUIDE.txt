@@ -1,0 +1,77 @@
+# Flashing ProjectBlueIDF_merged.bin to ESP32-S3
+
+## Merged Binary Info
+
+- File:       build/ProjectBlueIDF_merged.bin
+- Size:       6.6 MB
+- SHA256:     1d7517dde3b47456d2426b9c76f3e3b7a2fd7f806d3505d976a4bc34bc8e53a0
+- Flash Size: 16 MB
+- Flash Mode: DIO
+- Flash Freq: 80 MHz
+- Chip:       ESP32-S3
+
+## Prerequisites
+
+1. Connect the ESP32-S3 board via USB
+2. Identify the serial port:
+
+   ls /dev/ttyUSB* /dev/ttyACM* 2>/dev/null
+   # Typically /dev/ttyUSB0 or /dev/ttyACM0
+
+3. Activate the ESP-IDF environment:
+
+   . $HOME/esp/esp-idf/export.sh
+
+## Verify Before Flashing
+
+Confirm the binary is valid and matches the expected hash:
+
+   echo "1d7517dde3b47456d2426b9c76f3e3b7a2fd7f806d3505d976a4bc34bc8e53a0  build/ProjectBlueIDF_merged.bin" | sha256sum -c -
+
+Expected output: build/ProjectBlueIDF_merged.bin: OK
+
+## Flash Command
+
+The merged binary contains all partitions (bootloader, partition table, OTA data, app)
+packed at their correct offsets. Flash it starting at address 0x0:
+
+   esptool.py --chip esp32s3 --port /dev/ttyUSB0 --baud 460800 \
+     --flash-mode dio --flash-size 16mb --flash-freq 80m \
+     write_flash 0x0 build/ProjectBlueIDF_merged.bin
+
+Replace /dev/ttyUSB0 with your actual port.
+
+## Alternative: Flash via idf.py
+
+If you prefer using idf.py instead of the merged binary, flash the individual partitions:
+
+   idf.py -p /dev/ttyUSB0 flash
+
+## Monitor After Flash
+
+   idf.py -p /dev/ttyUSB0 monitor
+
+Press Ctrl+] to exit the monitor.
+
+## Flash Memory Layout
+
+  Partition        Offset    Size
+  ---------        ------    ----
+  Bootloader       0x0       (in merged bin)
+  Partition Table  0x8000    (in merged bin)
+  OTA Data         0xd000    (in merged bin)
+  App (factory)    0x10000   12 MB
+  Storage (SPIFFS) follows   3 MB
+
+## Troubleshooting
+
+- Permission denied on port:
+    sudo chmod 666 /dev/ttyUSB0
+    OR
+    sudo usermod -a -G dialout $USER
+
+- Failed to connect:
+    Hold the BOOT button while connecting, then release after flashing starts
+
+- Wrong flash size:
+    Ensure the board has 16MB flash; the merged bin is built for 16MB
