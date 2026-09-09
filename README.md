@@ -17,9 +17,11 @@ Just copy all 4 folders to the root on your SD Card
 IMPORTANT!**
 Follow these instructions for setting up Wifi to your ESP32-S3 board:
 
-Ensure you are on the same network as the board
-** I suggest using your phone to create a hotspot name Mooo with pw: MooMoo1234!   (hard coded in the binary)
+A) Ensure you are on the same network as the board
+
+B) ** I suggest using your phone to create a hotspot name Mooo with pw: MooMoo1234!   (hard coded in the binary)
 board will connect to you SSID Mooo automatically
-Look at your hotspot to see the IP address granted to the espressive device (ESP32-S3 board) and enter it into the IP address box of this PB Control Station viewer
-uses your keyboard and mouse to send those inputs to the board
-Fast connections  = better performance as desktop streamed over wifi
+
+C) Look at your hotspot to see the IP address granted to the espressive device (ESP32-S3 board) and enter it into the IP address box of this PB Control Station viewer uses your keyboard and mouse to send those inputs to the board
+
+D) Fast connections  = better performance as desktop streamed over wifi
