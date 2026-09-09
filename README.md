@@ -22,6 +22,6 @@ A) Ensure you are on the same network as the board
 B) ** I suggest using your phone to create a hotspot name Mooo with pw: MooMoo1234!   (hard coded in the binary)
 board will connect to you SSID Mooo automatically
 
-C) Look at your hotspot to see the IP address granted to the espressive device (ESP32-S3 board) and enter it into the IP address box of this PB Control Station viewer uses your keyboard and mouse to send those inputs to the board
+C) Look at your hotspot to see the IP address granted to the espressive device (ESP32-S3 board) and enter it into the IP address box of the PB Control Station viewer (* html viewer uses your keyboard and mouse to send those inputs to the board *)
 
 D) Fast connections  = better performance as desktop streamed over wifi
